@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'screens/create_product_screen.dart';
+import 'screens/list_products_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -85,13 +86,13 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               const SizedBox(height: 16),
 
-              // Botón placeholder para Ver Productos (próximamente)
+              // Botón para Ver Productos
               OutlinedButton.icon(
                 onPressed: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('📋 Función próximamente disponible'),
-                      behavior: SnackBarBehavior.floating,
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ListProductsScreen(),
                     ),
                   );
                 },
