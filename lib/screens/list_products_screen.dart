@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/product.dart';
 import '../services/product_service.dart';
+import 'edit_product_screen.dart';
 
 class ListProductsScreen extends StatefulWidget {
   const ListProductsScreen({super.key});
@@ -8,6 +9,7 @@ class ListProductsScreen extends StatefulWidget {
   @override
   State<ListProductsScreen> createState() => _ListProductsScreenState();
 }
+
 // Holi
 class _ListProductsScreenState extends State<ListProductsScreen> {
   final _productService = ProductService();
@@ -384,13 +386,43 @@ class _ListProductsScreenState extends State<ListProductsScreen> {
 
                   const SizedBox(height: 24),
 
-                  // Botón cerrar
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () => Navigator.pop(context),
-                      child: const Text('Cerrar'),
-                    ),
+                  // Botones de acción
+                  Row(
+                    children: [
+                      Expanded(
+                        child: ElevatedButton.icon(
+                          onPressed: () async {
+                            Navigator.pop(context);
+                            final result = await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    EditProductScreen(product: product),
+                              ),
+                            );
+                            if (result != null) {
+                              _loadProducts();
+                            }
+                          },
+                          icon: const Icon(Icons.edit),
+                          label: const Text('Editar'),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Theme.of(
+                              context,
+                            ).colorScheme.primary,
+                            foregroundColor: Colors.white,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: OutlinedButton.icon(
+                          onPressed: () => Navigator.pop(context),
+                          icon: const Icon(Icons.close),
+                          label: const Text('Cerrar'),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
